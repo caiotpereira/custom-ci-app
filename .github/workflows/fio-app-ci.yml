@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  FIO_FACTORY: lmp-demo
+  FIO_FACTORY: caio_go_production_test
   FIO_REGISTRY: hub.foundries.io
   DOCKER_IMAGES_DIR: docker
 
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        docker_dir: [ha-plugin, ha-app]            
+        docker_dir: [ha-plugin, ha-app]
 
     outputs:
       image_tag: ${{ steps.tag.outputs.short_sha }}
@@ -29,7 +29,7 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
-      - 
+      -
         name: Set short git commit SHA
         id: tag
         run: |
@@ -45,7 +45,7 @@ jobs:
         name: Login to Foundries Container Registry
         uses: docker/login-action@v2
         with:
-          registry: ${{ env.FIO_REGISTRY }} 
+          registry: ${{ env.FIO_REGISTRY }}
           username: "doesntmatter"
           password: ${{ secrets.FIO_TOKEN  }}
       -
@@ -83,7 +83,7 @@ jobs:
           registry: ${{ env.FIO_REGISTRY }}
           username: "doesntmatter"
           password: ${{ secrets.FIO_TOKEN  }}
-      - 
+      -
         name: Build and push Fio App
         id: app
         working-directory: ${{ env.COMPOSE_APP_DIR }}

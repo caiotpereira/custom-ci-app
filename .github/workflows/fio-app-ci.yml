@@ -41,7 +41,7 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-        -
+      -
         name: Verify Login
         run: |
               echo ${{ secrets.FIO_TOKEN}} | docker login hub.foundries.io -u doesntmatter --password-stdin

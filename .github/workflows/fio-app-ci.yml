@@ -49,6 +49,15 @@ jobs:
           username: "doesntmatter"
           password: ${{ secrets.FIO_TOKEN  }}
       -
+        name: Verify Login
+        run: |
+              if ! docker info; then
+                echo "Docker login failed";
+                exit 1;
+              else
+                echo "Docker login succeeded!";
+              fi
+      -
         name: Build and push docker image
         id: docker_build
         uses: docker/build-push-action@v3

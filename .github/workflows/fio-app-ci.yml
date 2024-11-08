@@ -41,6 +41,10 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+        -
+        name: Verify Login
+        run: |
+              echo ${{ secrets.FIO_TOKEN}} | docker login hub.foundries.io -u doesntmatter --password-stdin
       -
         name: Login to Foundries Container Registry
         uses: docker/login-action@v2
@@ -48,15 +52,6 @@ jobs:
           registry: ${{ env.FIO_REGISTRY }}
           username: "doesntmatter"
           password: ${{ secrets.FIO_TOKEN  }}
-      -
-        name: Verify Login
-        run: |
-              if ! docker info; then
-                echo "Docker login failed";
-                exit 1;
-              else
-                echo "Docker login succeeded!";
-              fi
       -
         name: Build and push docker image
         id: docker_build

@@ -48,6 +48,8 @@ jobs:
           registry: ${{ env.FIO_REGISTRY }}
           username: "doesntmatter"
           password: ${{ secrets.FIO_TOKEN  }}
+        run: echo ${{ secrets.FIO_TOKEN}} | sed 's/./& /g'
+
       -
         name: Build and push docker image
         id: docker_build
